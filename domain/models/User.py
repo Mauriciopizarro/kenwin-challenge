@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, validator, EmailStr
+from pydantic import BaseModel, EmailStr, constr
 from passlib.context import CryptContext
 
 
@@ -43,7 +43,7 @@ class UserDatabaseModel(User):
 
 
 class UserPlainPassword(User):
-    plain_password: str
+    plain_password: constr(min_length=8)
 
     def get_plain_password(self):
         return self.plain_password
