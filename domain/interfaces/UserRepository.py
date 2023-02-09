@@ -4,7 +4,10 @@ from domain.models.User import UserDatabaseModel, UserPlainPassword
 
 class UserRepository(ABC):
     @abstractmethod
-    def get_by_username(self, username: str) -> UserDatabaseModel:
+    def get_by_username(self, username: str, is_user_register: bool) -> UserDatabaseModel:
+        pass
+
+    def get_by_email(self, email, is_user_register: bool) -> UserDatabaseModel:
         pass
 
     @abstractmethod

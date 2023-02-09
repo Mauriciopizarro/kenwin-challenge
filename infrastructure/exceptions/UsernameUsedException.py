@@ -1,0 +1,3 @@
+
+class UsernameUsedException(Exception):
+    pass

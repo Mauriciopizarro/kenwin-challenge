@@ -1,0 +1,3 @@
+
+class InvalidMinCharactersPasswordException(Exception):
+    pass
