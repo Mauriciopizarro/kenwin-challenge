@@ -15,11 +15,11 @@ class RegisterUserService:
         self.user_repository = user_repository
 
     def register_user(self, email, username, password):
-        if len(password) < 8:
+        if 8 > len(password) or len(password) > 14:
             raise InvalidMinCharactersPasswordException()
 
         user = UserPlainPassword(email=email, username=username, plain_password=password)
-        logging.info("password attemps" + password)
+        #logging.info("password attemps: " + password)
 
         self.user_repository.get_by_email(email, True)
         self.user_repository.get_by_username(username, True)

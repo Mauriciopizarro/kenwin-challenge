@@ -1,5 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import logging
+from config import settings
 from domain.interfaces.UserRepository import UserRepository
 from domain.models.User import UserDatabaseModel, UserPlainPassword
 from infrastructure.exceptions.EmailUsedException import EmailUsedException
@@ -14,7 +16,7 @@ class MongoUserRepository(UserRepository):
 
     @staticmethod
     def get_database():
-        client = MongoClient("mongodb://mongo:27017/kenwin")
+        client = MongoClient(settings.DATABASE_URL)
         return client['kenwin']["users"]
 
     def get_by_username(self, username, is_user_register):

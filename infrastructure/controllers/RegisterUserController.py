@@ -1,7 +1,6 @@
 from pydantic import BaseModel, ValidationError
 from application.services.register_user_service import RegisterUserService
 from fastapi import HTTPException, APIRouter
-
 from infrastructure.exceptions.EmailUsedException import EmailUsedException
 from infrastructure.exceptions.InvalidMinCharactersPasswordException import InvalidMinCharactersPasswordException
 from infrastructure.exceptions.NotExistentUserException import NotExistentUserException
@@ -25,14 +24,14 @@ class RegisterResponseData(BaseModel):
     email: str
 
 
-@router.post("/api/v1/user/register", response_model=RegisterResponseData)
+@router.post("/api/v1/register", status_code=201, response_model=RegisterResponseData)
 async def register_controller(request: RegisterRequestData):
     try:
         return register_user_service.register_user(request.email, request.username, request.password)
     except UserExistentException:
         raise HTTPException(status_code=400, detail="Username already in use")
     except InvalidMinCharactersPasswordException:
-        raise HTTPException(status_code=400, detail="Password should have 8 or more characteres")
+        raise HTTPException(status_code=400, detail="Password should have between 8 and 14 characters")
     except ValidationError:
         raise HTTPException(status_code=400, detail="Email not valid")
     except EmailUsedException:
