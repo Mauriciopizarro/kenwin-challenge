@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import infrastructure.Injector # no remove this dependecy
-from infrastructure.controllers import RegisterUserController, LoginController
+from infrastructure.controllers import RegisterUserController, AuthController, ResetPasswordController
 import logging.config
 import yaml
 
@@ -12,4 +12,5 @@ logger.info("Configured the logger!")
 
 app = FastAPI()
 app.include_router(RegisterUserController.router)
-app.include_router(LoginController.router)
+app.include_router(AuthController.router)
+app.include_router(ResetPasswordController.router)
