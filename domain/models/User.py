@@ -43,7 +43,7 @@ class UserDatabaseModel(User):
 
 
 class UserPlainPassword(User):
-    plain_password: constr(min_length=8)
+    plain_password: constr(min_length=8, max_length=14)
 
     def get_plain_password(self):
         return self.plain_password

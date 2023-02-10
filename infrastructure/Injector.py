@@ -7,4 +7,5 @@ class Injector(containers.DeclarativeContainer):
 
 
 injector = Injector()
-injector.wire(modules=["application.services.register_user_service"])
+injector.wire(modules=["application.services.register_user_service",
+                       "application.services.login_service"])

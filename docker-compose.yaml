@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+
+  mongo:
+    image: mongo:4.4.18-rc0-focal
+    container_name: 'mongo-db'
+    env_file:
+      - ./.env
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    ports:
+      - "27017:27017"
+
+
+  kenwin-challenge:
+    build: .
+    container_name: 'kenwin'
+    ports:
+      - 5000:5000
+    env_file:
+      - ./.env
+    environment:
+      FAST_API_PORT: ${FAST_API_PORT}
+    depends_on:
+      - mongo
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
