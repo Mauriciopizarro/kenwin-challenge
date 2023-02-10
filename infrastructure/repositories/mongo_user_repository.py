@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import logging
 from config import settings
 from domain.interfaces.UserRepository import UserRepository
 from domain.models.User import UserDatabaseModel, UserPlainPassword

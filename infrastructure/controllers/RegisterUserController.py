@@ -18,7 +18,6 @@ class RegisterRequestData(BaseModel):
 
 
 class RegisterResponseData(BaseModel):
-    #token: str
     username: str
     user_id: str
     email: str
@@ -29,14 +28,20 @@ async def register_controller(request: RegisterRequestData):
     try:
         return register_user_service.register_user(request.email, request.username, request.password)
     except UserExistentException:
-        raise HTTPException(status_code=400, detail="Username already in use")
+        raise HTTPException(status_code=400,
+                            detail="Username already in use")
     except InvalidMinCharactersPasswordException:
-        raise HTTPException(status_code=400, detail="Password should have between 8 and 14 characters")
+        raise HTTPException(status_code=400,
+                            detail="Password should have between 8 and 14 characters")
     except ValidationError:
-        raise HTTPException(status_code=400, detail="Email not valid")
+        raise HTTPException(status_code=400,
+                            detail="Email not valid")
     except EmailUsedException:
-        raise HTTPException(status_code=400, detail="Email in use, try other or reset your password")
+        raise HTTPException(status_code=400,
+                            detail="Email in use, try other or reset your password")
     except NotExistentUserException:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404,
+                            detail="User not found")
     except UsernameUsedException:
-        raise HTTPException(status_code=404, detail="Username in use")
+        raise HTTPException(status_code=404,
+                            detail="Username in use")
