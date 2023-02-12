@@ -15,10 +15,10 @@ class MongoUserRepository(UserRepository):
 
     @staticmethod
     def get_database():
-        client = MongoClient(settings.DATABASE_URL)
-        return client['kenwin']["users"]
+        client = MongoClient(settings.DATABASE_URL).get_database("kenwin").get_collection("users")
+        return client
 
-    def get_by_username(self, username, is_user_register):
+    def get_by_username(self, username, is_user_register=False):
         user_dict = self.db.find_one({"username": username})
 
         if is_user_register and user_dict:
@@ -35,7 +35,7 @@ class MongoUserRepository(UserRepository):
         user_dict["id"] = user_dict.pop('_id')
         return UserDatabaseModel(**user_dict)
 
-    def get_by_email(self, email, is_user_register):
+    def get_by_email(self, email, is_user_register=False):
         user_dict = self.db.find_one({"email": email})
 
         if is_user_register and user_dict:

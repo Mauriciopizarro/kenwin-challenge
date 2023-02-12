@@ -1,0 +1,3 @@
+
+class IncorrectObjectIdException(Exception):
+    pass

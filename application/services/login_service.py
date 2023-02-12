@@ -12,6 +12,6 @@ class LoginService:
         self.user_repository = user_repository
 
     def login(self, email: str, password: str):
-        user = self.user_repository.get_by_email(email=email, is_user_register=False)
+        user = self.user_repository.get_by_email(email=email)
         user.verify_password(password)
         return user

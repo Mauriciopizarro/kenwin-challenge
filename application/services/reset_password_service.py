@@ -17,10 +17,9 @@ class ResetPasswordService:
         self.user_repository = user_repository
 
     def reset_password(self, user_name: str, new_password: str):
-        # in a future is posible add old_password and if the old_password is correct, new_password is updated
         if not new_password:
             raise EmptyNewPassword()
-        user_db = self.user_repository.get_by_username(user_name, is_user_register=False)
+        user_db = self.user_repository.get_by_username(user_name)
         user = UserPlainPassword(username=user_db.username, id=user_db.id, plain_password=new_password, email=user_db.email)
         hash_password = user.get_hashed_password()
         updated_user = UserDatabaseModel(username=user_db.username, id=user_db.id, hashed_password=hash_password, email=user_db.email)

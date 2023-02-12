@@ -1,6 +1,5 @@
 from domain.interfaces.UserRepository import UserRepository
 from dependency_injector.wiring import Provide, inject
-import logging
 from domain.models.User import UserPlainPassword
 from infrastructure.Injector import Injector
 from infrastructure.exceptions.InvalidMinCharactersPasswordException import InvalidMinCharactersPasswordException

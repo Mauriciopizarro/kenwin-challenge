@@ -1,0 +1,3 @@
+
+class TaskAlreadyFinishedException(Exception):
+    pass
