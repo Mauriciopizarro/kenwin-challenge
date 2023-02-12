@@ -1,10 +1,9 @@
 from datetime import timedelta, datetime, timezone
 from typing import Optional
-from fastapi import HTTPException, APIRouter, Depends, Response
+from fastapi import HTTPException, APIRouter, Depends, Response, status
 from pydantic import BaseModel
 from application.services.login_service import LoginService
 from config import settings
-from infrastructure.auth import oauth2
 from infrastructure.auth.oauth2 import AuthJWT
 from domain.models.User import IncorrectPasswordError
 from infrastructure.exceptions.NotExistentUserException import NotExistentUserException
@@ -25,7 +24,7 @@ class LoginRequestData(BaseModel):
     password: str
 
 
-@router.post("/api/v1/login", status_code=200, response_model=ResponseSchema)
+@router.post("/api/v1/login", status_code=status.HTTP_200_OK, response_model=ResponseSchema)
 async def login(request: LoginRequestData, response: Response, Authorize: AuthJWT = Depends()):
     try:
         user = login_service.login(request.email, request.password)
@@ -60,8 +59,8 @@ async def login(request: LoginRequestData, response: Response, Authorize: AuthJW
             "token_expires": token_expire_date}
 
 
-@router.get('/api/v1/logout', status_code=200)
-async def logout(response: Response, Authorize: AuthJWT = Depends(), user_id: str = Depends(oauth2.require_user)):
+@router.post('/api/v1/logout', status_code=status.HTTP_200_OK)
+async def logout(response: Response, Authorize: AuthJWT = Depends()):
     Authorize.unset_jwt_cookies()
     response.set_cookie('logged_in', '', -1)
-    return {'status': 'success'}
+    return {'status': 'Session finished'}

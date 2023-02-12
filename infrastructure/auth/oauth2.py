@@ -1,4 +1,5 @@
 import base64
+import logging
 from typing import List
 from bson import ObjectId
 from fastapi import Depends, HTTPException
@@ -42,13 +43,15 @@ def require_user(Authorize: AuthJWT = Depends()):
 
     except Exception as e:
         error = e.__class__.__name__
-        print(error)
         if error == 'MissingTokenError':
             raise HTTPException(
-                status_code=401, detail='You are not logged in')
+                status_code=401,
+                detail='You are not logged in')
         if error == 'UserNotFound':
             raise HTTPException(
-                status_code=401, detail='User no longer exist')
+                status_code=404,
+                detail='User no longer exist')
         raise HTTPException(
-            status_code=401, detail='Token is invalid or has expired')
+            status_code=401,
+            detail='Token is invalid or has expired')
     return user_id
