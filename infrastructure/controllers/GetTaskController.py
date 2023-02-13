@@ -1,5 +1,5 @@
 from application.services.get_task_from_user import GetTaskFromUser
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status
 from infrastructure.auth import oauth2
 
 

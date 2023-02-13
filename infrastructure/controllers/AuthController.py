@@ -63,4 +63,4 @@ async def login(request: LoginRequestData, response: Response, Authorize: AuthJW
 async def logout(response: Response, Authorize: AuthJWT = Depends()):
     Authorize.unset_jwt_cookies()
     response.set_cookie('logged_in', '', -1)
-    return {'status': 'Session finished'}
+    return {'detail': 'Session finished'}
