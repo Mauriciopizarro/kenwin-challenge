@@ -22,6 +22,6 @@ class FinishTaskService:
         task.finish_task()
         timezone_offset = -3.0  # Argentina time zone (UTC−03:00)
         time_zone = timezone(timedelta(hours=timezone_offset))
-        task.date_finished = datetime.now(time_zone).strftime('%Y-%m-%d %H:%M:%S')
+        task.date_finished = datetime.now(time_zone).strftime('%Y-%m-%dT%H:%M:%S')
         self.task_repository.update(task_id, task)
         return task
