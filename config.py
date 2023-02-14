@@ -9,7 +9,6 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str
     JWT_PUBLIC_KEY: str
     JWT_PRIVATE_KEY: str
-    CLIENT_ORIGIN: str
 
     class Config:
         env_file = './.env'
