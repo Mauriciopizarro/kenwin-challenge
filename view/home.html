@@ -1,0 +1,27 @@
+{% extends "components/layout.html" %} {% block title %}Profile{% endblock %} {%
+block content %}
+  <div class="row m-sm-5 m-3">
+    <h1 class="col">Profile User</h1>
+  </div>
+  <div class="row justify-content-center">
+    <div class="card col-5" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">Hi <mark>{{ data_user.get("username") }}</mark></h5>
+        <p class="card-text">This is a list with your data.</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Email: <mark>{{ data_user.get("email") }}</mark></li>
+        <li class="list-group-item">Token: <mark>{{ data_user.get("token") }}</mark></li>
+      </ul>
+      <div class="col-12">
+        <form action="/change_password">
+          <button type="submit">Change password</button>
+        </form>
+
+        <form action="/logout">
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
