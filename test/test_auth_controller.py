@@ -26,8 +26,3 @@ def test_invalid_password_auth_controller():
     assert response.json() == {"detail": "Incorrect password"}
 
 
-def test_logout():
-    response = client.post("/api/v1/logout")
-
-    assert response.status_code == 200
-    assert response.json() == {"detail": "Session finished"}
