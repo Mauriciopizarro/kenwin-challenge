@@ -37,7 +37,8 @@ Una vez que el usuario inicia sesión, puede crear tareas, listarlas y finalizar
   **_ACCESS_TOKEN_EXPIRES_IN_**= Tiempo de caducidad para el access-token (en horas)<br>
   **_JWT_ALGORITHM_**= RS256<br>
  **_JWT_PRIVATE_KEY_**= <br>
- **_JWT_PUBLIC_KEY_**= <br>
+ **_JWT_PUBLIC_KEY_**= 
+<br>
 <br>
 3) Buildear del docker compose
 
