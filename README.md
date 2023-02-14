@@ -30,7 +30,7 @@ Una vez que el usuario inicia sesión, puede crear tareas, listarlas y finalizar
 
             git clone https://github.com/Mauriciopizarro/kenwin-challenge.git
 
-2) Crear el archivo .env en el raiz del proyecto y configurar las siguientes variables de entorno <br> <br>
+2) Crear el archivo env en el raiz del proyecto y configurar las siguientes variables de entorno <br> <br>
   **_MONGO_INITDB_DATABASE_**=example<br>
   **_FAST_API_PORT_**=5000<br>
   **_DATABASE_URL_**=mongodb://mongo:27017/example<br>
@@ -46,7 +46,7 @@ Una vez que el usuario inicia sesión, puede crear tareas, listarlas y finalizar
 
        docker-compose up
 
-5) Listo, la app ya está levantada en el puerto 5000 (o el puerto que hayas colocado en el .env)
+5) Listo, la app ya está levantada en el puerto 5000 (o el puerto que hayas colocado en el env)
 
 <br>
 
