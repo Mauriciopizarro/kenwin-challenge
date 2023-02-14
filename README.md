@@ -144,15 +144,15 @@ Para finalizar una tarea se debe enviar por parámetro el id de la tarea, este s
 
 Esta app incluye un frontend donde el usuario puede registrarse:
 
-![Screenshot from 2023-02-13 20-03-58.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202023-02-13%2020-03-58.png)
+![My Image](src/images/sign_up.png)
 
 Una vez registrado, se debe iniciar sesión:
 
-![Screenshot from 2023-02-13 20-08-16.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202023-02-13%2020-08-16.png)
+![My Image](src/images/login.png)
 
 Luego de iniciar sesión con nuestras credenciales, veremos un Home de bienvenida: 
 
-![Screenshot from 2023-02-13 20-10-19.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202023-02-13%2020-10-19.png)
+![My Image](src/images/user_profile.png)
 
 En este home tendremos algunos datos de nuestra cuenta, un access_token y los botones de cambiar contraseña y cerrar sesión.
 <br>
@@ -161,11 +161,11 @@ En este home tendremos algunos datos de nuestra cuenta, un access_token y los bo
 
 Copiamos el token y abrimos la consola del navegador (F12), nos vamos a application > cookies y agregamos "access_token" y pegamos el token.
 
-![Screenshot from 2023-02-13 20-17-07.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202023-02-13%2020-17-07.png)
+![My Image](src/images/cookies.png)
 
 Ahora si podemos cerrar la consola del navegador y hacer clic en el boton de change_password
 
-![Screenshot from 2023-02-13 20-18-06.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202023-02-13%2020-18-06.png)
+![My Image](src/images/reset_pass.png)
 
 Colocamos nuestra nueva password y listo, ya podemos iniciar con nuestra nueva contraseña :)
 <br>
