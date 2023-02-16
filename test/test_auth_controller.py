@@ -18,7 +18,7 @@ def test_invalid_mail_auth_controller():
 def test_invalid_password_auth_controller():
     response = client.post("/api/v1/login",
                            json={
-                               "email": "mauripizarro14@gmail.com",
+                               "email": "test@test.com",
                                "password": "fake_password",
                            },)
 

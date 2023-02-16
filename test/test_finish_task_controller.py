@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 from application.services.finish_task_service import FinishTaskService
 from infrastructure.auth.oauth2 import require_user
 from starter import app
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta, timezone
 
 
 async def mock_require_user():
@@ -24,7 +24,7 @@ def test_finish_task(mock_finish_task):
 
 
 def test_cant_finish_task():
-    response = client.post("/api/v1/finish_task/63e932b0069ebc836b2734f8")
+    response = client.post("/api/v1/finish_task/63eea2c2dc6d49b7688c326b")
     assert response.json() == {
         "detail": "Task is already finished"
     }
