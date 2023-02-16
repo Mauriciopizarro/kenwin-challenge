@@ -157,18 +157,10 @@ Luego de iniciar sesión con nuestras credenciales, veremos un Home de bienvenid
 En este home tendremos algunos datos de nuestra cuenta, un access_token y los botones de cambiar contraseña y cerrar sesión.
 <br>
 
-**En esta versión de la app no es posible cambiar contraseña de forma fácil (jaja) y es necesario setear el access_token en las cookies de forma manual para poder hacer uso de este botón.**
-
-Copiamos el token y abrimos la consola del navegador (F12), nos vamos a application > cookies y agregamos "access_token" y pegamos el token.
-
-![My Image](src/images/cookies.png)
-
-Ahora si podemos cerrar la consola del navegador y hacer clic en el boton de change_password
+Tambien es posible cambiar nuestra conseseña, para ello, hacer clic en el boton de change_password y colocar nuestra nueva contraseña y repetirla.
 
 ![My Image](src/images/reset_pass.png)
 
-Colocamos nuestra nueva password y listo, ya podemos iniciar con nuestra nueva contraseña :)
-<br>
 <br>
 <br>
 <br>
@@ -177,5 +169,5 @@ Colocamos nuestra nueva password y listo, ya podemos iniciar con nuestra nueva c
 
 ## Desarrollo
 
-Desarrollado por Mauricio Pizarro <br>
-email: pizarromauricio031096@gmail.com
+Esta app ha sido desarrollada por Mauricio Pizarro <br>
+Email: pizarromauricio031096@gmail.com
