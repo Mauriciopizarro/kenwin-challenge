@@ -11,10 +11,20 @@ block content %}
 
           document.cookie = curCookie;
       </script>
+      <style type="text/css">
+          body {
+            background-color: rgb(0, 28, 65);
+          }
+
+          .btn-primary {
+            padding: 10px 25px;
+            margin: 4px 2px;
+          }
+      </style>
     </head>
     <body>
         <div class="row m-sm-5 m-3">
-    <h1 class="col">Profile User</h1>
+    <h1 style="color:white" class="col">Profile User</h1>
   </div>
   <div class="row justify-content-center">
     <div class="card col-5" style="width: 18rem">
@@ -24,17 +34,22 @@ block content %}
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Email: <mark>{{ data_user.get("email") }}</mark></li>
-        <li class="list-group-item">Token: <mark>{{ data_user.get("token") }}</mark></li>
       </ul>
-      <div class="col-12">
-        <form action="/change_password">
-          <button type="submit">Change password</button>
-        </form>
+          <div class="col-12">
+            <br>
+                <form action="/change_password">
+                  <button class="btn btn-primary" type="submit">Change password</button>
+                </form>
 
-        <form action="/logout">
-          <button type="submit">Logout</button>
-        </form>
-      </div>
+                <form action="/logout">
+                  <button class="btn btn-primary" type="submit">Logout</button>
+                </form>
+
+                <form action="/create_new_task">
+                  <button class="btn btn-primary" type="submit">Create task</button>
+                </form>
+
+          </div>
     </div>
   </div>
     </body>

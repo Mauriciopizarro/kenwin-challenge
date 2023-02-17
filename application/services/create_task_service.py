@@ -17,6 +17,11 @@ class CreateTaskService:
         timezone_offset = -3.0  # Argentina Standard Time (UTC−03:00)
         time_zone = timezone(timedelta(hours=timezone_offset))
         task = Task(status="in_progress", owner_id=owner_id, description=description, difficult=difficult, date_created=datetime.now(time_zone).strftime('%Y-%m-%d %H:%M:%S'), date_finished=None)
-        self.task_repository.save(task)
+        task_created = self.task_repository.save(task)
+        task.id = task_created.inserted_id
+        return task
+
+    def get_task(self, task_id):
+        task = self.task_repository.get_by_id(task_id)
         return task
         

@@ -34,6 +34,7 @@ class MongoTaskRepository(TaskRepository):
             raise TaskNotFoundException()
         if task_dict.get("status") == "finished":
             return Task(status=task_dict["status"],
+                        id=str(task_dict["_id"]),
                         owner_id=task_dict["owner_id"],
                         description=task_dict["description"],
                         difficult=task_dict["difficult"],
@@ -41,6 +42,7 @@ class MongoTaskRepository(TaskRepository):
                         date_finished=(task_dict["date_finished"]))
 
         return Task(status=task_dict["status"],
+                    id=str(task_dict["_id"]),
                     owner_id=task_dict["owner_id"],
                     description=task_dict["description"],
                     difficult=task_dict["difficult"],

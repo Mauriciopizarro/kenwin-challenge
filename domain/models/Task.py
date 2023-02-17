@@ -11,6 +11,7 @@ class Task(BaseModel):
     difficult: int = Field(None, ge=1, le=10)
     date_created: datetime
     date_finished: Optional[datetime]
+    id: Optional[str]
 
     def finish_task(self):
         self.status = "finished"

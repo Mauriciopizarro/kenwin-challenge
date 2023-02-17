@@ -1,0 +1,54 @@
+{% extends "components/layout.html" %} {% block title %}Profile{% endblock %} {%
+block content %}
+
+<html lang="es">
+    <head>
+      <script type="text/javascript">
+
+        window.onload = function() {
+            document.callback.action = get_action();
+        }
+
+        function get_action() {
+            return "/finish_task/{{ data_task.get("id") }}";
+        }
+
+      </script>
+      <style type="text/css">
+          body {
+            background-color: rgb(0, 28, 65);
+          }
+          .btn-primary {
+            padding: 10px 25px;
+            margin: 4px 2px;
+          }
+          .list-group-item {
+            font-family: "Lucida Console", "Courier New", monospace;
+          }
+      </style>
+    </head>
+    <body>
+    <div class="row m-sm-5 m-3">
+        <h1 style="color:white" class="col">Task</h1>
+    </div>
+  <div class="row justify-content-center">
+    <div class="card col-5" style="width: 25rem">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Status: {{ data_task.get("status") }}</li>
+            <li class="list-group-item">Id: {{ data_task.get("id") }}</li>
+            <li class="list-group-item">Description: {{ data_task.get("description") }}</li>
+            <li class="list-group-item">Difficult: {{ data_task.get("difficult") }}</li>
+            <li class="list-group-item">Date created: {{ data_task.get("date_created") }}</li>
+            <li class="list-group-item">Date finished: {{ data_task.get("date_finished") }}</li>
+        </ul>
+          <div class="col-12">
+                <form id="callback" name="callback" method="post">
+                  <button class="btn btn-primary" type="submit">Finish task</button>
+                </form>
+          </div>
+    </div>
+  </div>
+    </body>
+</html>
+
+{% endblock %}
