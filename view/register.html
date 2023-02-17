@@ -2,17 +2,26 @@
 
 {% block title %}Sign up{% endblock %}
 {% block content %}
+  <html lang="es">
+    <head>
+      <style type="text/css">
+              body {
+                background-color: rgb(0, 28, 65);
+              }
+      </style>
+    </head>
+    <body>
   <div class="row m-md-5 m-3">
-    <h1 class="col">Sign up</h1>
+    <h1 style="color:white" class="col">Sign up</h1>
   </div>
 
   <form method="POST" action="/signup" class="row g-3 mx-sm-5 mx-2">
     <div class="col-md-4">
-      <label for="validationDefault02" class="form-label">Email</label>
+      <label style="color:white" for="validationDefault02" class="form-label">Email</label>
       <input name="email" type="text" class="form-control" id="validationDefault02" required />
     </div>
     <div class="col-md-4">
-      <label for="validationDefaultUsername" class="form-label">Username</label>
+      <label style="color:white" for="validationDefaultUsername" class="form-label">Username</label>
       <div class="input-group">
         <span class="input-group-text" id="inputGroupPrepend2">@</span>
         <input
@@ -26,7 +35,7 @@
       </div>
     </div>
     <div class="col-md-3">
-      <label for="validationDefault05" class="form-label">Password</label>
+      <label style="color:white" for="validationDefault05" class="form-label">Password</label>
       <input
         name="password_user"
         type="password"
@@ -39,4 +48,5 @@
       <button class="btn btn-primary" type="submit">Register</button>
     </div>
   </form>
+  </body>
 {% endblock %}
