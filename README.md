@@ -161,7 +161,21 @@ Tambien es posible cambiar nuestra conseseña, para ello, hacer clic en el boton
 
 ![My Image](src/images/reset_pass.png)
 
-<br>
+
+
+Otra funcionalidad importante es que podemos crear tareas:
+
+![My Image](src/images/create_task.png)
+
+Luego de darle a crear, observamos los detalles de nuestra tarea:
+
+![My Image](src/images/task_detail.png)
+
+Si le damos al boton de finalizar, dicha tarea cambiara su status y seteara la fecha en la que se finalizo:
+
+![My Image](src/images/task_finished.png)
+
+
 <br>
 <br>
 <br>
@@ -169,5 +183,5 @@ Tambien es posible cambiar nuestra conseseña, para ello, hacer clic en el boton
 
 ## Desarrollo
 
-Esta app ha sido desarrollada por Mauricio Pizarro <br>
+Esta app ha sido desarrollada por Mauricio Pizarro con el proposito de ser enviada como prueba tecnica. <br>
 Email: pizarromauricio031096@gmail.com
