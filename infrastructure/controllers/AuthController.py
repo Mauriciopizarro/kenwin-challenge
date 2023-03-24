@@ -76,10 +76,10 @@ async def logout(response: Response, Authorize: AuthJWT = Depends()):
 
 
 @router.get('/logout', status_code=status.HTTP_200_OK)
-async def logout(response: Response, Authorize: AuthJWT = Depends()):
+async def logout(req: Request, response: Response, Authorize: AuthJWT = Depends()):
     Authorize.unset_jwt_cookies()
     response.set_cookie('logged_in', '', -1)
-    return {'detail': 'Session finished'}
+    return template.TemplateResponse("login.html", {"request": req})
 
 
 @router.post("/api/v1/login", status_code=status.HTTP_200_OK, response_model=ResponseSchema)
