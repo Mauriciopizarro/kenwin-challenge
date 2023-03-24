@@ -15,6 +15,9 @@ block content %}
           body {
             background-color: rgb(0, 28, 65);
           }
+          .row {
+            margin-top: 5%;
+          }
 
           .btn-primary {
             padding: 10px 25px;
@@ -23,35 +26,34 @@ block content %}
       </style>
     </head>
     <body>
-        <div class="row m-sm-5 m-3">
-    <h1 style="color:white" class="col">Profile User</h1>
-  </div>
-  <div class="row justify-content-center">
-    <div class="card col-5" style="width: 18rem">
-      <div class="card-body">
-        <h5 class="card-title">Hi <mark>{{ data_user.get("username") }}</mark></h5>
-        <p class="card-text">This is a list with your data.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Email: <mark>{{ data_user.get("email") }}</mark></li>
-      </ul>
-          <div class="col-12">
-            <br>
-                <form action="/change_password">
-                  <button class="btn btn-primary" type="submit">Change password</button>
-                </form>
-
-                <form action="/logout">
-                  <button class="btn btn-primary" type="submit">Logout</button>
-                </form>
-
-                <form action="/create_new_task">
-                  <button class="btn btn-primary" type="submit">Create task</button>
-                </form>
-
+      <div class="row justify-content-center">
+        <div class="card col-5" style="width: 18rem">
+          <div class="card-body">
+            <h5 class="card-title">Hi <mark>{{ data_user.get("username") }}</mark></h5>
           </div>
-    </div>
-  </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Email: <mark>{{ data_user.get("email") }}</mark></li>
+          </ul>
+              <div class="col-12">
+                <br>
+                    <form action="/change_password">
+                      <button class="btn btn-primary" type="submit">Change password</button>
+                    </form>
+
+                    <form action="/logout">
+                      <button class="btn btn-primary" type="submit">Logout</button>
+                    </form>
+
+                    <form action="/create_new_task">
+                      <button class="btn btn-primary" type="submit">Create task</button>
+                    </form>
+
+                    <form action="/my_tasks">
+                      <button class="btn btn-primary" type="submit">My tasks</button>
+                    </form>
+              </div>
+        </div>
+      </div>
     </body>
 </html>
 
