@@ -30,6 +30,10 @@ class RegisterResponseData(BaseModel):
 async def register_controller(req: Request):
     return template.TemplateResponse("register.html", {"request": req})
 
+@router.get("/", status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def register_controller(req: Request):
+    return template.TemplateResponse("register.html", {"request": req})
+
 
 @router.post("/api/v1/register", status_code=status.HTTP_201_CREATED, response_model=RegisterResponseData)
 async def register_controller(request: RegisterRequestData):
