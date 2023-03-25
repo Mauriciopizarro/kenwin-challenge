@@ -3,102 +3,65 @@ block content %}
 
 <html lang="es">
     <head>
-      <script type="text/javascript"> </script>
-      <style>
-        body {
-            background-color: rgb(0, 28, 65);
-        }
-        .card {
-            background-color: blue;
-            margin-bottom: 2%;
-        }
-        .container {
-              padding: 2%;
-              display: flex;
-              width: 800px;
-              height: 400px;
-              margin: auto;
-              flex-wrap: wrap;
-              justify-content: space-between;
-        }
-      </style>
+        <style>
+            body {
+                background-color: rgb(0, 28, 65);
+            }
+            .card {
+                margin-bottom: 1%;
+            }
+            .container {
+                  padding: 2%;
+                  display: flex;
+                  width: 100%;
+                  height: 100%;
+                  margin: auto;
+                  flex-wrap: wrap;
+                  justify-content: space-between;
+            }
+            .list-group-item {
+                font-family: "Lucida Console", "Courier New", monospace;
+                font-size: 12px;
+            }
+        </style>
+        <script>
+            window.onload = function() {
+
+                var json = "{{data_task}}"
+                var object = JSON.parse(json.replace(/&#(\d+);/g, function(match, dec) {
+                   return String.fromCharCode(dec);
+                }));
+                var containerCreated = document.createElement("div");
+                containerCreated.classList.add("container");
+                containerCreated.id = 'con';
+
+                for (var i = 0; i < object.length; i++) {
+
+                    var divCreated = document.createElement("div");
+                    divCreated.classList.add("card", "col-5");
+                    divCreated.style.width = '23.5%';
+                    divCreated.id = 'div';
+
+                    var ulCreated = document.createElement("ul");
+                    ulCreated.classList.add("list-group", "list-group-flush");
+
+                    document.body.appendChild(containerCreated);
+                    containerCreated.appendChild(divCreated);
+                    divCreated.appendChild(ulCreated);
+
+                    for (var key in object[i]) {
+                        if (object[i].hasOwnProperty(key)) {
+                            var x = document.createElement("li");
+                            x.classList.add("list-group-item");
+                            x.innerHTML = key.toUpperCase() + ": " + object[i][key];
+                            ulCreated.appendChild(x);
+                        }
+                    }
+                }
+            }
+        </script>
     </head>
     <body>
-        <div class="container">
-            <div class="card col-5" style="width: 23.5%">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                </ul>
-            </div>
-            <div class="card col-5" style="width: 23.5%">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                </ul>
-            </div>
-            <div class="card col-5" style="width: 23.5%">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                </ul>
-            </div>
-            <div class="card col-5" style="width: 23.5%">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                </ul>
-            </div>
-            <div class="card col-5" style="width: 23.5%">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                </ul>
-            </div>
-
-            <div class="card col-5" style="width: 23.5%">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                </ul>
-            </div>
-            <div class="card col-5" style="width: 23.5%">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                </ul>
-            </div>
-            <div class="card col-5" style="width: 23.5%">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                    <li class="list-group-item">TEST</li>
-                </ul>
-            </div>
-        </div>
     </body>
 </html>
 
