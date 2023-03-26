@@ -5,7 +5,7 @@ from domain.models.Task import Task
 class TaskRepository(ABC):
 
     @abstractmethod
-    def get_all_by_owner_id(self, owner_id: str):
+    def get_all_by_owner_id(self, owner_id: str, filter_by: str):
         pass
 
     @abstractmethod
