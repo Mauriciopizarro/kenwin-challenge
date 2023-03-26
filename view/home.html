@@ -49,9 +49,19 @@ block content %}
                   <button class="btn btn-primary" type="submit">Create task</button>
                 </form>
 
-                <form action="/my_tasks">
-                  <button class="btn btn-primary" type="submit">My tasks</button>
+                <form action="/my_tasks/all">
+                    <button id= "allTasks" class="btn btn-primary dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            type="submit">Tasks
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li> <a href="/my_tasks/all" class="btn btn-primary dropdown-item">All</a> </li>
+                        <li> <a href="/my_tasks/in_progress" class="btn btn-primary dropdown-item">In progress</a> </li>
+                        <li> <a href="/my_tasks/finished" class="btn btn-primary dropdown-item">Finished</a> </li>
+                    </ul>
                 </form>
+
               </div>
         </div>
       </div>

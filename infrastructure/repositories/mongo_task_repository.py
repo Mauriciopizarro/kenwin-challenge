@@ -19,8 +19,16 @@ class MongoTaskRepository(TaskRepository):
         client = MongoClient(settings.DATABASE_URL).get_database("kenwin").get_collection("task")
         return client
 
-    def get_all_by_owner_id(self, owner_id: str):
-        task_list = self.db.find({"owner_id": owner_id})
+    def get_all_by_owner_id(self, owner_id: str, filter_by: str):
+
+        if filter_by == "all":
+            task_list = self.db.find({"owner_id": owner_id})
+            json_data = dumps(task_list)
+            json_response = json.loads(json_data)
+            formated_response = self.format_model_response(json_response)
+            return formated_response
+
+        task_list = self.db.find({"status": filter_by, "owner_id": owner_id})
         json_data = dumps(task_list)
         json_response = json.loads(json_data)
         formated_response = self.format_model_response(json_response)

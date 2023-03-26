@@ -11,6 +11,9 @@ class GetTaskFromUser:
     ):
         self.task_repository = task_repository
 
-    def get_task(self, owner_id):
-        task_list = self.task_repository.get_all_by_owner_id(owner_id)
+    # filter method "all" to defect
+    def get_task(self, owner_id, filter_by: str = 'all'):
+        task_list = self.task_repository.get_all_by_owner_id(owner_id, filter_by)
+        for task in task_list:
+            del task['owner_id']
         return task_list
