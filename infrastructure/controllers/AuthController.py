@@ -6,6 +6,8 @@ from fastapi.templating import Jinja2Templates
 from application.services.login_service import LoginService
 from fastapi.responses import HTMLResponse
 from config import settings
+from domain.models import User
+from infrastructure.auth import oauth2
 from infrastructure.auth.oauth2 import AuthJWT
 from domain.models.User import IncorrectPasswordError
 from infrastructure.exceptions.NotExistentUserException import NotExistentUserException
@@ -35,6 +37,12 @@ async def home_controller(req: Request):
 @router.post("/login", status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 async def home_controller(req: Request):
     return template.TemplateResponse("login.html", {"request": req})
+
+
+@router.get("/home/redirect/{token}", status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def home_redirect(req: Request, token, user: dict = Depends(oauth2.get_user)):
+    data = {"username": user.get("username"), "email": user.get("email"), "token": token}
+    return template.TemplateResponse("home.html", {"request": req, "data_user": data})
 
 
 @router.post("/home", status_code=status.HTTP_200_OK, response_class=HTMLResponse)

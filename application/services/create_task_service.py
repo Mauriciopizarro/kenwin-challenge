@@ -20,8 +20,3 @@ class CreateTaskService:
         task_created = self.task_repository.save(task)
         task.id = task_created.inserted_id
         return task
-
-    def get_task(self, task_id):
-        task = self.task_repository.get_by_id(task_id)
-        return task
-        

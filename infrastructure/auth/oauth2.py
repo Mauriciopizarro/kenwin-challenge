@@ -30,6 +30,32 @@ class UserNotFound(Exception):
     pass
 
 
+def get_user(Authorize: AuthJWT = Depends()):
+    mongodb = MongoUserRepository()
+    try:
+        Authorize.jwt_required()
+        user_id = Authorize.get_jwt_subject()
+        user = mongodb.get_database().find_one({'_id': ObjectId(str(user_id))})
+
+        if not user:
+            raise UserNotFound('User no longer exist')
+
+    except Exception as e:
+        error = e.__class__.__name__
+        if error == 'MissingTokenError':
+            raise HTTPException(
+                status_code=401,
+                detail='You are not logged in')
+        if error == 'UserNotFound':
+            raise HTTPException(
+                status_code=404,
+                detail='User no longer exist')
+        raise HTTPException(
+            status_code=401,
+            detail='Token is invalid or has expired')
+    return user
+
+
 def require_user(Authorize: AuthJWT = Depends()):
     mongodb = MongoUserRepository()
 
