@@ -7,10 +7,17 @@ block content %}
 
         window.onload = function() {
             document.callback.action = get_action();
+            hideButtonTaskFinished("{{ data_task.get("status") }}");
         }
 
         function get_action() {
             return "/finish_task/{{ data_task.get("id") }}";
+        }
+
+        function hideButtonTaskFinished(status) {
+          if (status === "finished") {
+            document.getElementById("buttonFinished").style.display = "none";
+          }
         }
 
       </script>
@@ -44,7 +51,7 @@ block content %}
         </ul>
           <div class="col-12">
                 <form id="callback" name="callback" method="post">
-                  <button class="btn btn-primary" type="submit">Finish task</button>
+                  <button id="buttonFinished" class="btn btn-primary" type="submit">Finish task</button>
                 </form>
                 <form action="/create_new_task" method="get">
                   <button class="btn btn-primary" type="submit">Create other task</button>

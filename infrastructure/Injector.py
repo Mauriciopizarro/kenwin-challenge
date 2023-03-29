@@ -13,6 +13,6 @@ injector.wire(modules=["application.services.register_user_service",
                        "application.services.login_service",
                        "application.services.reset_password_service",
                        "application.services.create_task_service",
-                       "application.services.get_task_from_user",
+                       "application.services.get_task_service",
                        "application.services.finish_task_service"
                        ])

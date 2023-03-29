@@ -3,14 +3,26 @@ block content %}
 
 <html lang="es">
     <head>
-      <script type="text/javascript">
-          name = "access_token"
-          value = "{{ data_user.get("token") }}"
+        <script type="text/javascript">
+            var cookies = document.cookie;
+            var cookiesArray = cookies.split(";");
+            var token = null;
 
-          var curCookie = name + "=" + value;
+            for(var i = 0; i < cookiesArray.length; i++) {
+              var cookie = cookiesArray[i].trim();
+              if(cookie.indexOf("access_token=") == 0) {
+                token = cookie.substring("access_token=".length, cookie.length);
+                break;
+              }
+            }
 
-          document.cookie = curCookie;
-      </script>
+            if (!(token === "{{ data_user.get("token") }}")) {
+                name = "access_token"
+                value = "{{ data_user.get("token") }}"
+                var curCookie = name + "=" + value;
+                document.cookie = curCookie;
+            }
+        </script>
       <style type="text/css">
           body {
             background-color: rgb(0, 28, 65);
@@ -55,14 +67,17 @@ block content %}
                             aria-expanded="false"
                             type="submit">Tasks
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
+                    <ul class="dropdown-menu dropdown-menu-right">
                         <li> <a href="/my_tasks/all" class="btn btn-primary dropdown-item">All</a> </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li> <a href="/my_tasks/in_progress" class="btn btn-primary dropdown-item">In progress</a> </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li> <a href="/my_tasks/finished" class="btn btn-primary dropdown-item">Finished</a> </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li> <a href="/search_task_by_id" class="btn btn-primary dropdown-item">Search</a> </li>
                     </ul>
                 </form>
-
-              </div>
+            </div>
         </div>
       </div>
     </body>

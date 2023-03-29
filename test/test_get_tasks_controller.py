@@ -1,6 +1,6 @@
 from unittest.mock import patch
 from fastapi.testclient import TestClient
-from application.services.get_task_from_user import GetTaskFromUser
+from application.services.get_task_service import GetTaskFromUser
 from infrastructure.auth.oauth2 import require_user
 from starter import app
 

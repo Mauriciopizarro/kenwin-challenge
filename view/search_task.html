@@ -1,0 +1,28 @@
+{% extends "components/layout.html" %}
+
+{% block title %}Task{% endblock %}
+{% block content %}
+  <div class="row m-sm-5 m-3">
+    <h1 style="color:white" class="col">Search task</h1>
+  </div>
+  <style type="text/css">
+          body {
+            background-color: rgb(0, 28, 65);
+          }
+  </style>
+  <section class="row justify-content-center">
+    <form method="POST" action="/get_task" class="col-sm-5 col-10">
+      <div class="mb-3">
+        <label for="exampleInputUsername" style="color:white" class="form-label">ID</label>
+        <input
+          name="task_id"
+          type="text"
+          class="form-control"
+          id="exampleInputUsername"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </section>
+{% endblock %}

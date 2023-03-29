@@ -1,5 +1,6 @@
 from application.services.create_task_service import CreateTaskService
 from fastapi import APIRouter, Depends, status, HTTPException, Form, Request
+from application.services.get_task_service import GetTaskFromUser
 from infrastructure.auth import oauth2
 from pydantic import BaseModel, ValidationError
 from fastapi.templating import Jinja2Templates
@@ -15,6 +16,7 @@ class CreateTaskRequestData(BaseModel):
 
 router = APIRouter()
 create_task_service = CreateTaskService()
+get_task_from_user = GetTaskFromUser()
 template = Jinja2Templates(directory="./view")
 
 
@@ -27,16 +29,8 @@ async def create_task(req: Request):
 @router.post("/get_task/{task_id}", status_code=status.HTTP_200_OK)
 async def get_task(req: Request, task_id: str, user_id: str = Depends(oauth2.require_user)):
     try:
-        task_saved = create_task_service.get_task(task_id)
-        data = {
-            "status": task_saved.status,
-            "description": task_saved.description,
-            "date_created": task_saved.date_created,
-            "date_finished": task_saved.date_finished,
-            "difficult": task_saved.difficult,
-            "id": task_saved.id
-        }
-        return template.TemplateResponse("task_details.html", {"request": req, "data_task": data})
+        task_json = get_task_from_user.get_by_id_in_json_format(task_id)
+        return template.TemplateResponse("task_details.html", {"request": req, "data_task": task_json})
     except TaskNotFoundException:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Task not found")
