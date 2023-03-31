@@ -6,6 +6,29 @@ block content %}
       <script type="text/javascript">
 
         window.onload = function() {
+            setInterval(() => {
+              homeButton.classList.toggle('vibrate');
+            }, 1500);
+
+            var cookies = document.cookie;
+            var cookiesArray = cookies.split(";");
+            var token = null;
+
+            for(var i = 0; i < cookiesArray.length; i++) {
+              var cookie = cookiesArray[i].trim();
+              if(cookie.indexOf("access_token=") == 0) {
+                token = cookie.substring("access_token=".length, cookie.length);
+                break;
+              }
+            }
+
+            const formElement = document.getElementById('goHome');
+            const newUrl = '/home/redirect/'+ token;
+            formElement.action = newUrl;
+
+            var header = document.getElementsByTagName('header')[0];
+            header.parentNode.removeChild(header);
+
             document.callback.action = get_action();
             hideButtonTaskFinished("{{ data_task.get("status") }}");
         }
@@ -33,11 +56,55 @@ block content %}
             font-family: "Lucida Console", "Courier New", monospace;
           }
 
+          #homeButton {
+            font-size: 35px;
+            color: rgb(0, 28, 65);
+            border: none;
+            background-color: transparent;
+            padding: 0;
+          }
+
+          @keyframes vibrate {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-1px) rotate(-3deg); }
+            50% { transform: translateX(0) rotate(3deg); }
+            75% { transform: translateX(1px) rotate(-3deg); }
+            100% { transform: translateX(0); }
+          }
+
+          .vibrate {
+            animation: vibrate .3s ease-in-out infinite;
+          }
+
       </style>
     </head>
     <body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-light">
+          <div class="container-fluid">
+            <form id="goHome" method="GET" action="/home">
+              <button id="homeButton" class="vibrate">
+                  <span class="fas fa-house-user"
+                        aria-hidden="true">
+                  </span>
+              </button>
+            </form>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </nav>
+    </header>
     <div class="row m-sm-5 m-3">
-        <h1 style="color:white" class="col">Task</h1>
+        <h1 style="color:white" class="col">Task detail</h1>
     </div>
   <div class="row justify-content-center">
     <div class="card col-5" style="width: 25rem">

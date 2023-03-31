@@ -15,8 +15,8 @@ class FinishTaskService:
     ):
         self.task_repository = task_repository
 
-    def finish_task(self, task_id):
-        task = self.task_repository.get_by_id(task_id)
+    def finish_task(self, task_id, owner_id):
+        task = self.task_repository.get_by_id(task_id, owner_id)
         if task.status == "finished":
             raise TaskAlreadyFinishedException()
         task.finish_task()

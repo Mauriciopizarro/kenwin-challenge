@@ -6,6 +6,7 @@ from pymongo import MongoClient
 from config import settings
 from domain.models.Task import Task
 from infrastructure.exceptions.IncorrectObjectIdException import IncorrectObjectIdException
+from infrastructure.exceptions.NotSameOwnerTaskException import NotSameOwnerTaskException
 from infrastructure.exceptions.TaskNotFoundException import TaskNotFoundException
 
 
@@ -34,12 +35,14 @@ class MongoTaskRepository(TaskRepository):
         formated_response = self.format_model_response(json_response)
         return formated_response
 
-    def get_by_id(self, task_id: str) -> Task:
+    def get_by_id(self, task_id: str, owner_id) -> Task:
         if not ObjectId.is_valid(task_id):
             raise IncorrectObjectIdException()
         task_dict = self.db.find_one({"_id": ObjectId(task_id)})
         if not task_dict:
             raise TaskNotFoundException()
+        if task_dict.get("owner_id") != owner_id:
+            raise NotSameOwnerTaskException()
         if task_dict.get("status") == "finished":
             return Task(status=task_dict["status"],
                         id=str(task_dict["_id"]),

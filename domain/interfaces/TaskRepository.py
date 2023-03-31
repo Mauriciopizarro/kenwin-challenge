@@ -9,7 +9,7 @@ class TaskRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_id(self, task_id: str) -> Task:
+    def get_by_id(self, task_id: str, owner_id) -> Task:
         pass
 
     @abstractmethod

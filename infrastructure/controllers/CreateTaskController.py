@@ -27,9 +27,9 @@ async def create_task(req: Request):
 
 # get task for task_id, after task is created, this method is called
 @router.post("/get_task/{task_id}", status_code=status.HTTP_200_OK)
-async def get_task(req: Request, task_id: str, user_id: str = Depends(oauth2.require_user)):
+async def get_task(req: Request, task_id: str, owner_id: str = Depends(oauth2.require_user)):
     try:
-        task_json = get_task_from_user.get_by_id_in_json_format(task_id)
+        task_json = get_task_from_user.get_by_id_in_json_format(task_id, owner_id)
         return template.TemplateResponse("task_details.html", {"request": req, "data_task": task_json})
     except TaskNotFoundException:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,

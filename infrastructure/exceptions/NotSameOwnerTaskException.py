@@ -1,0 +1,2 @@
+class NotSameOwnerTaskException(Exception):
+    pass
