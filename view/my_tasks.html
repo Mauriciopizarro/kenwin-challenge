@@ -19,9 +19,33 @@ block content %}
                 font-family: "Lucida Console", "Courier New", monospace;
                 font-size: 12px;
             }
+            #homeButton {
+                font-size: 35px;
+                color: rgb(0, 28, 65);
+                border: none;
+                background-color: transparent;
+                padding: 0;
+            }
+
+            @keyframes vibrate {
+              0% { transform: translateX(0); }
+              25% { transform: translateX(-1px) rotate(-3deg); }
+              50% { transform: translateX(0) rotate(3deg); }
+              75% { transform: translateX(1px) rotate(-3deg); }
+              100% { transform: translateX(0); }
+            }
+
+            .vibrate {
+              animation: vibrate 0.3s ease-in-out infinite;
+            }
         </style>
         <script>
             window.onload = function() {
+
+                setInterval(() => {
+                  homeButton.classList.toggle('vibrate');
+                }, 1500);
+
                 var cookies = document.cookie;
                 var cookiesArray = cookies.split(";");
                 var token = null;
@@ -81,8 +105,11 @@ block content %}
             <nav class="navbar navbar-expand-lg bg-light">
               <div class="container-fluid">
                 <form id="goHome" method="GET" action="/home">
-                  <input type="hidden" name="data" value="some_data">
-                  <button type="submit" class="navbar-brand">Home</button>
+                  <button id="homeButton" class="vibrate">
+                      <span class="fas fa-house-user"
+                            aria-hidden="true">
+                      </span>
+                  </button>
                 </form>
                 <button
                   class="navbar-toggler"

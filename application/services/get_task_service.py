@@ -18,8 +18,8 @@ class GetTaskFromUser:
             del task['owner_id']
         return task_list
 
-    def get_by_id_in_json_format(self, task_id):
-        task = self.task_repository.get_by_id(task_id)
+    def get_by_id_in_json_format(self, task_id, owner_id):
+        task = self.task_repository.get_by_id(task_id, owner_id)
         task_json = {
             "status": task.status,
             "id": task.id,

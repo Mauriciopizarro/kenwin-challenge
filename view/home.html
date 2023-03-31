@@ -4,6 +4,8 @@ block content %}
 <html lang="es">
     <head>
         <script type="text/javascript">
+            var header = document.getElementsByTagName('header')[0];
+            header.parentNode.removeChild(header);
             var cookies = document.cookie;
             var cookiesArray = cookies.split(";");
             var token = null;
