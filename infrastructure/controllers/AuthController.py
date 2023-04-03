@@ -1,16 +1,15 @@
-from datetime import timedelta, datetime, timezone
-from typing import Optional
-from fastapi import HTTPException, APIRouter, Depends, Response, status, Request, Form
-from pydantic import BaseModel
-from fastapi.templating import Jinja2Templates
-from application.services.login_service import LoginService
-from fastapi.responses import HTMLResponse
-from config import settings
-from domain.models import User
-from infrastructure.auth import oauth2
-from infrastructure.auth.oauth2 import AuthJWT
-from domain.models.User import IncorrectPasswordError
 from infrastructure.exceptions.NotExistentUserException import NotExistentUserException
+from fastapi import HTTPException, APIRouter, Depends, Response, status, Request, Form
+from application.services.login_service import LoginService
+from domain.models.User import IncorrectPasswordError
+from datetime import timedelta, datetime, timezone
+from fastapi.templating import Jinja2Templates
+from infrastructure.auth.oauth2 import AuthJWT
+from fastapi.responses import HTMLResponse
+from infrastructure.auth import oauth2
+from pydantic import BaseModel
+from typing import Optional
+from config import settings
 
 router = APIRouter()
 template = Jinja2Templates(directory="./view")
@@ -62,15 +61,9 @@ async def login(req: Request, response: Response, email: str = Form(), password_
                             expires=ACCESS_TOKEN_EXPIRES_IN * 60)
 
     except NotExistentUserException:
-        raise HTTPException(
-            status_code=404,
-            detail="User does not exist",
-        )
+        return template.TemplateResponse("error.html", {"request": req, "error": 'User does not exist'})
     except IncorrectPasswordError:
-        raise HTTPException(
-            status_code=400,
-            detail="Incorrect password",
-        )
+        return template.TemplateResponse("error.html", {"request": req, "error": 'Incorrect password, please try again.'})
 
     data = {"username": user.username, "email": user.email, "token": access_token}
     return template.TemplateResponse("home.html", {"request": req, "data_user": data})

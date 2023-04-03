@@ -1,4 +1,5 @@
-import infrastructure.Injector # no remove this dependecy
+import infrastructure.Injector
+# Don't remove injector dependency
 from infrastructure.controllers import \
     RegisterUserController, \
     AuthController, \
