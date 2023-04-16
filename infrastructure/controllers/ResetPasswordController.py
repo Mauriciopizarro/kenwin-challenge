@@ -4,6 +4,8 @@ from pydantic import BaseModel
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi import HTTPException, APIRouter, Depends, status, Request, Form
 from fastapi.templating import Jinja2Templates
+
+from domain.models.User import IncorrectPasswordError, User
 from infrastructure.auth import oauth2
 from infrastructure.repositories.mongo_user_repository import MongoUserRepository
 
@@ -29,11 +31,8 @@ async def home_controller(req: Request):
 
 # callback from reset_password.html
 @router.post("/reset_password", status_code=status.HTTP_200_OK)
-async def reset_password_controller(new_password: str = Form(), repeat_new_password: str = Form(), user_id: str = Depends(oauth2.require_user)):
+async def reset_password_controller(current_password: str = Form(), new_password: str = Form(), repeat_new_password: str = Form(), user: dict = Depends(oauth2.get_user)):
     try:
-        mongodb = MongoUserRepository()
-        user = mongodb.get_database().find_one({'_id': ObjectId(str(user_id))}) # Oauth2 call maybe should return user not user_id
-
         if new_password == "":
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -42,19 +41,23 @@ async def reset_password_controller(new_password: str = Form(), repeat_new_passw
         if len(new_password) > 14 or len(new_password) < 8:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                 detail="Password should have between 8 and 14 characters")
-        if new_password == repeat_new_password:
-            reset_password_service.reset_password(user_name=user.get("username"), new_password=new_password)
-        else:
+        if new_password != repeat_new_password:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Password are not matching, try again",
             )
+        if reset_password_service.validate_current_password(current_password, user_name=user.get('username')):
+            reset_password_service.reset_password(user_name=user.get('username'), new_password=new_password)
     except NotExistentUser:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found",
         )
-
+    except IncorrectPasswordError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Incorrect current password",
+        )
     return RedirectResponse("/login")
 
 
@@ -62,7 +65,7 @@ async def reset_password_controller(new_password: str = Form(), repeat_new_passw
 async def reset_password_controller(request: ResetPasswordRequestData, user_id: str = Depends(oauth2.require_user)):
     try:
         mongodb = MongoUserRepository()
-        user = mongodb.get_database().find_one({'_id': ObjectId(str(user_id))}) # Oauth2 call maybe should return user not user_id
+        user = mongodb.get_database().find_one({'_id': ObjectId(str(user_id))})  # Oauth2 call maybe should return user not user_id
 
         if request.new_password == "":
             raise HTTPException(

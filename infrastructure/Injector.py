@@ -1,4 +1,6 @@
 from dependency_injector import containers, providers
+
+from infrastructure.events.rabbit_publisher import RabbitPublisher
 from infrastructure.repositories.mongo_task_repository import MongoTaskRepository
 from infrastructure.repositories.mongo_user_repository import MongoUserRepository
 
@@ -6,6 +8,7 @@ from infrastructure.repositories.mongo_user_repository import MongoUserRepositor
 class Injector(containers.DeclarativeContainer):
     user_repo = providers.Singleton(MongoUserRepository)
     task_repo = providers.Singleton(MongoTaskRepository)
+    publisher = providers.Singleton(RabbitPublisher)
 
 
 injector = Injector()
