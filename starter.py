@@ -1,5 +1,7 @@
 import infrastructure.Injector
 # Don't remove injector dependency
+from infrastructure.events.rabbit_connection import RabbitConnection
+import logging.config
 from infrastructure.controllers import \
     RegisterUserController, \
     AuthController, \
@@ -10,6 +12,7 @@ from infrastructure.controllers import \
 from fastapi import FastAPI
 import logging.config
 import yaml
+import time
 
 
 with open("logging.yaml", 'rt') as f:
@@ -18,6 +21,11 @@ with open("logging.yaml", 'rt') as f:
 logging.config.dictConfig(config)
 logger = logging.getLogger(__name__)
 logger.info("Configured the logger!")
+
+time.sleep(5)
+queues = ["password_updated_send_email", "user_created_send_email"]
+channel = RabbitConnection.get_channel()
+RabbitConnection.declare_queues(channel, queues)
 
 app = FastAPI()
 
