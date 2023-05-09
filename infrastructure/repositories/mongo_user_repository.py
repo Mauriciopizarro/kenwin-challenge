@@ -61,3 +61,10 @@ class MongoUserRepository(UserRepository):
         user_dict = user.dict()
         user_dict.pop("id")
         self.db.find_one_and_update({"_id": ObjectId(user.get_id())}, {"$set": user_dict})
+
+    def update_verification_last_code(self, user: UserDatabaseModel):
+        user_dict = user.dict()
+        user_dict.pop("id")
+        self.db.find_one_and_update({"_id": ObjectId(user.get_id())}, {"$set": user_dict})
+
+

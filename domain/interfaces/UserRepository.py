@@ -17,3 +17,7 @@ class UserRepository(ABC):
     @abstractmethod
     def update_password(self, user: UserDatabaseModel):
         pass
+
+    @abstractmethod
+    def update_verification_last_code(self, user: UserDatabaseModel):
+        pass

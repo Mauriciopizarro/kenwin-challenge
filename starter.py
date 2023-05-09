@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 logger.info("Configured the logger!")
 
 time.sleep(5)
-queues = ["password_updated_send_email", "user_created_send_email"]
+queues = ["password_updated_send_email", "user_created_send_email", "send_reset_password_code_email"]
 channel = RabbitConnection.get_channel()
 RabbitConnection.declare_queues(channel, queues)
 
