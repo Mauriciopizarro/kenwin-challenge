@@ -9,8 +9,12 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class User(BaseModel):
 
     username: str
+    last_validation_code: Optional[str]
     email: EmailStr
     id: Optional[str]
+
+    def get_last_validation_code(self):
+        return self.last_validation_code
 
     def get_id(self):
         return self.id

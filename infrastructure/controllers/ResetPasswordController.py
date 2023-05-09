@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi import HTTPException, APIRouter, Depends, status, Request, Form
 from fastapi.templating import Jinja2Templates
-
 from domain.models.User import IncorrectPasswordError, User
 from infrastructure.auth import oauth2
 from infrastructure.repositories.mongo_user_repository import MongoUserRepository
@@ -27,6 +26,32 @@ class NotExistentUser(Exception):
 @router.get("/change_password", status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 async def home_controller(req: Request):
     return template.TemplateResponse("reset_password.html", {"request": req})
+
+
+@router.get("/forgot_password_form", status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def home_controller(req: Request):
+    return template.TemplateResponse("forgot_password.html", {"request": req})
+
+
+@router.post("/forgot_password", status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def reset_password_controller(req: Request,
+                                    validation_code: str = Form(),
+                                    new_pass: str = Form(),
+                                    repeat_new_pass: str = Form(),
+                                    user_email: str = Form()
+                                    ):
+    user = reset_password_service.compare_codes_and_get_credentials(user_email, validation_code)
+    # este user podria ser un false si el verification code es incorrecto, cambiar metodo para que devuelva una exception
+    if new_pass == repeat_new_pass:
+        reset_password_service.reset_password(user.get_username(), new_pass)
+        return RedirectResponse("/login")
+    return template.TemplateResponse("error_reset_by_verification_code.html", {"request": req, "error": 'Error on update password, please check the verification code'})
+
+
+@router.post("/send_email_forgot_password", status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def reset_password_controller(req: Request, email: str = Form()):
+    reset_password_service.send_verification_code(email)
+    return template.TemplateResponse("reset_password_with_code.html", {"request": req, "email": email})
 
 
 # callback from reset_password.html
