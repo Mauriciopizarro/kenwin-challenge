@@ -4,6 +4,7 @@ from domain.models.User import UserPlainPassword, UserDatabaseModel
 from infrastructure.Injector import Injector
 from domain.interfaces.publisher import Publisher
 from dependency_injector.wiring import Provide, inject
+from infrastructure.exceptions.NotExistentUserException import NotExistentUserException
 
 
 class EmptyNewPassword(Exception):
@@ -40,22 +41,27 @@ class ResetPasswordService:
         return True
 
     def send_verification_code(self, email):
+        user = self.user_repository.get_by_email(email)
+        if not user:
+            raise NotExistentUserException
         code = str(random.randint(1000, 9999))
         message = {
             "email": email,
             "validation_code": code,
             "subject": "Reset password code"
         }
-        user = self.user_repository.get_by_email(email)
         user.last_validation_code = code
         self.user_repository.update_verification_last_code(user)
         self.publisher.send_message(message=message, topic="send_reset_password_code_email")
 
-    def compare_codes_and_get_credentials(self, user_email, code):
+    def validate_verification_code(self, user_email, code):
         user = self.user_repository.get_by_email(user_email)
         user_last_code = user.get_last_validation_code()
 
         if code == user_last_code:
-            return user
+            return True
         # aca un try catch y retornar una exception en vez de False
         return False
+
+    def get_user_after_verification(self, user_email):
+        return self.user_repository.get_by_email(user_email)
