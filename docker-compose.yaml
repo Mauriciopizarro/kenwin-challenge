@@ -20,9 +20,9 @@ services:
     ports:
       - "27017:27017"
 
-  kenwin-challenge:
+  app:
     build: .
-    container_name: 'kenwin'
+    container_name: 'app'
     ports:
       - 5000:5000
     env_file:
