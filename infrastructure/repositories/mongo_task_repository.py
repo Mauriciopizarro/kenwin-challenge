@@ -17,7 +17,7 @@ class MongoTaskRepository(TaskRepository):
 
     @staticmethod
     def get_database():
-        client = MongoClient(settings.DATABASE_URL).get_database("kenwin").get_collection("task")
+        client = MongoClient(settings.DATABASE_URL).get_database("task-app").get_collection("task")
         return client
 
     def get_all_by_owner_id(self, owner_id: str, filter_by: str):

@@ -1,4 +1,5 @@
 import pika
+from config import settings
 
 
 class RabbitConnection:
@@ -6,10 +7,16 @@ class RabbitConnection:
     instance = None
 
     def __init__(self):
+        credentials = pika.PlainCredentials(settings.RABBIT_USERNAME, settings.RABBIT_PASSWORD)
         self.connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host="rabbitmq", heartbeat=999, blocked_connection_timeout=300)
+            pika.ConnectionParameters(host=settings.RABBIT_HOST,
+                                      heartbeat=9999,
+                                      blocked_connection_timeout=300,
+                                      credentials=credentials,
+                                      virtual_host=settings.RABBIT_VHOST)
         )
         self.channel = self.connection.channel()
+        self.channel.basic_qos(prefetch_count=1)
 
     @classmethod
     def get_channel(cls):

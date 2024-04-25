@@ -15,7 +15,7 @@ class MongoUserRepository(UserRepository):
 
     @staticmethod
     def get_database():
-        client = MongoClient(settings.DATABASE_URL).get_database("kenwin").get_collection("users")
+        client = MongoClient(settings.DATABASE_URL).get_database("task-app").get_collection("user")
         return client
 
     def get_by_username(self, username, is_user_register=False):
