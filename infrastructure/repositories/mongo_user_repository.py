@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from config import settings
+import certifi
 from domain.interfaces.UserRepository import UserRepository
 from domain.models.User import UserDatabaseModel, UserPlainPassword
 from infrastructure.exceptions.EmailUsedException import EmailUsedException
@@ -15,7 +16,7 @@ class MongoUserRepository(UserRepository):
 
     @staticmethod
     def get_database():
-        client = MongoClient(settings.DATABASE_URL).get_database("task-app").get_collection("user")
+        client = MongoClient(settings.DATABASE_URL, tlsCAFile=certifi.where()).get_database("task-app").get_collection("user")
         return client
 
     def get_by_username(self, username, is_user_register=False):

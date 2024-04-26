@@ -1,6 +1,7 @@
 from bson import ObjectId
 from bson.json_util import dumps
 import json
+import certifi
 from domain.interfaces.TaskRepository import TaskRepository
 from pymongo import MongoClient
 from config import settings
@@ -17,7 +18,7 @@ class MongoTaskRepository(TaskRepository):
 
     @staticmethod
     def get_database():
-        client = MongoClient(settings.DATABASE_URL).get_database("task-app").get_collection("task")
+        client = MongoClient(settings.DATABASE_URL, tlsCAFile=certifi.where()).get_database("task-app").get_collection("task")
         return client
 
     def get_all_by_owner_id(self, owner_id: str, filter_by: str):
