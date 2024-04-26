@@ -1,9 +1,16 @@
 from pydantic import BaseSettings
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+
+if not os.getenv("DEBUG") or os.getenv("DEBUG").lower() == "true":
+    load_dotenv("./.env.test")
+else:
+    load_dotenv("./.env")
 
 class Settings(BaseSettings):
     DATABASE_URL: str
-    MONGO_INITDB_DATABASE: str
     FAST_API_PORT: int
     RABBIT_USERNAME: str
     RABBIT_PASSWORD: str
@@ -13,9 +20,6 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str
     JWT_PUBLIC_KEY: str
     JWT_PRIVATE_KEY: str
-
-    class Config:
-        env_file = './.env'
 
 
 settings = Settings()
