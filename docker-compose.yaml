@@ -2,24 +2,6 @@ version: '3.3'
 
 services:
 
-  rabbitmq:
-    image: rabbitmq:management-alpine
-    container_name: 'rabbitmq'
-    ports:
-      - 5672:5672
-      - 15672:15672
-    restart: always
-
-  mongo:
-    image: mongo:4.4.18-rc0-focal
-    container_name: 'mongo-db'
-    env_file:
-      - ./.env
-    environment:
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-    ports:
-      - "27017:27017"
-
   app:
     build: .
     container_name: 'app'
@@ -29,20 +11,7 @@ services:
       - ./.env
     environment:
       FAST_API_PORT: ${FAST_API_PORT}
-    depends_on:
-      - mongo
-      - rabbitmq
     stdin_open: true
     tty: true
     volumes:
       - .:/app
-
-  email-service:
-    build:
-      context: ../mail-service
-      dockerfile: Dockerfile
-    container_name: 'email-service'
-    depends_on:
-      - rabbitmq
-    stdin_open: true
-    tty: true
