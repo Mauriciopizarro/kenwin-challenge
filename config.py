@@ -3,7 +3,6 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     DATABASE_URL: str
-    MONGO_INITDB_DATABASE: str
     FAST_API_PORT: int
     RABBIT_USERNAME: str
     RABBIT_PASSWORD: str

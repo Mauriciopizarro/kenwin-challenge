@@ -31,7 +31,6 @@ Una vez que el usuario inicia sesión, puede crear tareas, listarlas y finalizar
             git clone https://github.com/Mauriciopizarro/kenwin-challenge.git
 
 2) Crear el archivo env en el raiz del proyecto y configurar las siguientes variables de entorno <br> <br>
-  **_MONGO_INITDB_DATABASE_**=<br>
   **_FAST_API_PORT_**=<br>
   **_DATABASE_URL_**= <br>
   **_ACCESS_TOKEN_EXPIRES_IN_**= <br>
