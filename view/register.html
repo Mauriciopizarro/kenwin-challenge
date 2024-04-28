@@ -7,75 +7,74 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
-      body {
-        background: linear-gradient(135deg, #4e54c8, #8f94fb, #4e54c8);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: white;
-      }
+    body {
+      background: linear-gradient(135deg, #4e54c8, #8f94fb, #4e54c8);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+    }
 
-      .custom-container {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-        max-width: 50%;
-        margin: 0 30px;
-      }
+    .custom-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+      max-width: 500px; /* Ajustado para un mejor aspecto en dispositivos grandes */
+      width: 90%; /* Ajustado para un mejor aspecto en dispositivos pequeños */
+      margin: 0 auto; /* Centrar horizontalmente */
+    }
 
-      h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #333;
-      }
+    h1, h6 {
+      text-align: center;
+      color: #333; /* Color de texto ajustado */
+    }
 
-      h5 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: white;
-      }
+    .form-label {
+      color: #333;
+    }
 
-      .form-label {
-        color: #333;
-      }
+    .btn-register, .btn-login {
+      font-size: 1.2rem;
+      border-radius: 5px;
+      padding: 8px 16px;
+      transition: background-color 0.3s ease;
+    }
 
-      .btn-register {
-        background-color: #4e54c8;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 8px 16px;
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
+    .btn-register {
+      background-color: #4e54c8;
+      color: white;
+      border: none;
+    }
 
-      .btn-register:hover {
-        background-color: #333;
-      }
+    .btn-login {
+      background-color: #6ab04c; /* Cambiado a color verde */
+      color: white;
+      border: none;
+    }
 
-      .btn-login {
-        background-color: #6ab04c; /* Cambiar a color verde */
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 8px 16px;
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
+    .btn-register:hover {
+      background-color: #333;
+    }
 
-      .btn-login:hover {
-        background-color: #4e8543; /* Color de fondo más oscuro al pasar el cursor */
-      }
+    .btn-login:hover {
+      background-color: #4e8543; /* Color de fondo más oscuro al pasar el cursor */
+    }
+
+    .divider {
+      width: 100%; /* Ancho completo */
+      height: 1px; /* Altura de la línea */
+      background-color: #ccc; /* Color de la línea */
+      margin: 20px 0; /* Espacio alrededor de la línea */
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="custom-container mx-auto">
+    <div class="custom-container">
+      <h1>Sign Up</h1>
       <form method="POST" action="/signup" class="row g-3">
         <div class="col-12">
           <label for="validationDefault02" class="form-label">Email</label>
@@ -84,14 +83,14 @@
         <div class="col-12">
           <label for="validationDefaultUsername" class="form-label">Username</label>
           <div class="input-group">
-              <input
-                  name="username"
-                  type="text"
-                  class="form-control"
-                  id="validationDefaultUsername"
-                  aria-describedby="inputGroupPrepend2"
-                  required
-              />
+            <input
+              name="username"
+              type="text"
+              class="form-control"
+              id="validationDefaultUsername"
+              aria-describedby="inputGroupPrepend2"
+              required
+            />
           </div>
         </div>
         <div class="col-12">
@@ -104,16 +103,17 @@
             required
           />
         </div>
-        <div class="col-12 text-center"> <!-- Agregar la clase text-center aquí -->
-          <button class="btn-register" type="submit">Register</button>
+        <div class="col-12 text-center">
+          <button class="btn btn-register" type="submit">Register</button>
         </div>
       </form>
+        <div class="divider"></div>
+        <div class="text-center mt-3">
+          <h6>Do you already have an account?</h6>
+          <a class="btn btn-login" href="/login">Login</a>
+        </div>
     </div>
-    <div class="text-center mt-3">
-        <br>
-        <h5>¿Ya tienes una cuenta?</h5>
-        <a class="btn btn-login" href="/login">Login</a>
-      </div>
+
   </div>
 </body>
 </html>
