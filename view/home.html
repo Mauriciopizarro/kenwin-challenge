@@ -1,89 +1,118 @@
-{% extends "components/layout.html" %} {% block title %}Profile{% endblock %} {%
-block content %}
+{% extends "components/layout.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
 
 <html lang="es">
-    <head>
-        <script type="text/javascript">
-            var header = document.getElementsByTagName('header')[0];
-            header.parentNode.removeChild(header);
-            var cookies = document.cookie;
-            var cookiesArray = cookies.split(";");
-            var token = null;
+<head>
+    <script type="text/javascript">
+        var header = document.getElementsByTagName('header')[0];
+        header.parentNode.removeChild(header);
+        var cookies = document.cookie;
+        var cookiesArray = cookies.split(";");
+        var token = null;
 
-            for(var i = 0; i < cookiesArray.length; i++) {
-              var cookie = cookiesArray[i].trim();
-              if(cookie.indexOf("access_token=") == 0) {
-                token = cookie.substring("access_token=".length, cookie.length);
-                break;
-              }
-            }
-
-            if (!(token === "{{ data_user.get("token") }}")) {
-                name = "access_token"
-                value = "{{ data_user.get("token") }}"
-                var curCookie = name + "=" + value;
-                document.cookie = curCookie;
-            }
-        </script>
-      <style type="text/css">
-          body {
-            background-color: rgb(0, 28, 65);
+        for(var i = 0; i < cookiesArray.length; i++) {
+          var cookie = cookiesArray[i].trim();
+          if(cookie.indexOf("access_token=") == 0) {
+            token = cookie.substring("access_token=".length, cookie.length);
+            break;
           }
+        }
 
-          .btn-primary {
+        if (!(token === "{{ data_user.get("token") }}")) {
+            name = "access_token"
+            value = "{{ data_user.get("token") }}"
+            var curCookie = name + "=" + value;
+            document.cookie = curCookie;
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style type="text/css">
+        body {
+            background: linear-gradient(135deg, #4e54c8, #8f94fb, #4e54c8);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .btn-primary {
             padding: 10px 25px;
             margin: 4px 2px;
-          }
-      </style>
-    </head>
-    <body>
-        <div class="row m-3">
-    <h1 style="color:white" class="col">Profile User</h1>
-  </div>
-  <div class="row justify-content-center">
-    <div class="card col-5" style="width: 21rem">
-      <div class="card-body">
-        <h5 class="card-title">Hi <mark>{{ data_user.get("username") }}</mark></h5>
-        <p class="card-text">This is a list with your data.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Email: <mark>{{ data_user.get("email") }}</mark></li>
-      </ul>
-          <div class="col-12">
-            <br>
+        }
+
+        .email-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .email-section i {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #4e54c8; /* Color del icono */
+        }
+
+        .email-text {
+            font-size: 18px;
+            color: #333333; /* Color del texto */
+            font-family: 'Roboto', sans-serif; /* Familia tipográfica */
+        }
+    </style>
+</head>
+<body>
+    <div class="row m-3">
+        <h1 style="color:white; text-align:center;" class="col">Profile User</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="card col-5" style="width: 24rem">
+            <div class="card-body">
+                <h5 class="card-title">Hi <mark>{{ data_user.get("username") }}</mark></h5>
+                <p class="card-text">This is a list with your data.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><div class="email-section"><i class="fas fa-envelope"></i>
+                    <p class="email-text" style="font-size:1rem; margin:auto;" >{{ data_user.get("email") }}</p></div></li>
+            </ul>
+            <div class="col-12">
                 <form action="/change_password">
-                  <button class="btn btn-primary" type="submit">Change password</button>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-key"></i> Change password</button>
                 </form>
 
                 <form action="/logout">
-                  <button class="btn btn-primary" type="submit">Logout</button>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </form>
 
                 <form action="/create_new_task">
-                  <button class="btn btn-primary" type="submit">Create task</button>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-tasks"></i> Create task</button>
                 </form>
 
                 <form action="/my_tasks/all">
-                    <button id= "allTasks" class="btn btn-primary dropdown-toggle"
+                    <button id="allTasks" class="btn btn-primary dropdown-toggle"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
-                            type="submit">Tasks
+                            type="submit"><i class="fas fa-list"></i> Tasks
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li> <a href="/my_tasks/all" class="btn btn-primary dropdown-item">All</a> </li>
+                        <li><a href="/my_tasks/all" class="btn btn-primary dropdown-item"><i class="fas fa-list"></i> All</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li> <a href="/my_tasks/in_progress" class="btn btn-primary dropdown-item">In progress</a> </li>
+                        <li><a href="/my_tasks/in_progress" class="btn btn-primary dropdown-item"><i class="fas fa-tasks"></i> In progress</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li> <a href="/my_tasks/finished" class="btn btn-primary dropdown-item">Finished</a> </li>
+                        <li><a href="/my_tasks/finished" class="btn btn-primary dropdown-item"><i class="fas fa-check-circle"></i> Finished</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li> <a href="/search_task_by_id" class="btn btn-primary dropdown-item">Search</a> </li>
+                        <li><a href="/search_task_by_id" class="btn btn-primary dropdown-item"><i class="fas fa-search"></i> Search</a></li>
                     </ul>
                 </form>
             </div>
         </div>
-      </div>
-    </body>
+    </div>
+</body>
 </html>
-
 
 {% endblock %}
