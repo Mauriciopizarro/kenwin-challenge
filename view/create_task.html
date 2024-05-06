@@ -1,107 +1,187 @@
-{% extends "components/layout.html" %}
-
-{% block title %}Home{% endblock %}
-{% block content %}
-
+<!DOCTYPE html>
 <html lang="es">
-    <head>
-        <script type="text/javascript">
-            window.onload = function() {
-                var header = document.getElementsByTagName('header')[0];
-                header.parentNode.removeChild(header);
-                setInterval(() => {
-                  homeButton.classList.toggle('vibrate');
-                }, 1500);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-taJlTmZLr6VJgNfCzUDsUunDV6PigIpxg81Fg8vQfrc7m82vIoR2c7bCPzH3+U5/TOryb78KvqTjEB3vw2kfPQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #4e54c8, #8f94fb, #4e54c8);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-                var cookies = document.cookie;
-                var cookiesArray = cookies.split(";");
-                var token = null;
+        form {
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px; /* Limitar el ancho del formulario */
+            margin: auto; /* Centrar el formulario horizontalmente */
+        }
 
-                for(var i = 0; i < cookiesArray.length; i++) {
-                  var cookie = cookiesArray[i].trim();
-                  if(cookie.indexOf("access_token=") == 0) {
-                    token = cookie.substring("access_token=".length, cookie.length);
-                    break;
-                  }
-                }
+        form label {
+            color: #343a40; /* Cambiar el color del texto */
+            font-weight: bold;
+            display: block; /* Asegurar que cada etiqueta esté en una línea separada */
+            margin-bottom: 10px; /* Añadir espacio inferior */
+        }
 
-                const formElement = document.getElementById('goHome');
-                const newUrl = '/home/redirect/'+ token;
-                formElement.action = newUrl;
-            }
-        </script>
-        <style type="text/css">
-            body {
-                background-color: rgb(0, 28, 65);
-            }
-            #homeButton {
-                font-size: 35px;
-                color: rgb(0, 28, 65);
-                border: none;
-                background-color: transparent;
-                padding: 0;
-            }
+        form input[type="text"] {
+            width: 100%; /* Hacer que el campo de texto ocupe todo el ancho */
+            padding: 10px;
+            border: 1px solid #ced4da; /* Estilo de borde */
+            border-radius: 5px;
+            margin-bottom: 20px; /* Añadir espacio inferior */
+        }
 
-             @keyframes vibrate {
-                  0% { transform: translateX(0); }
-                  25% { transform: translateX(-1px) rotate(-3deg); }
-                  50% { transform: translateX(0) rotate(3deg); }
-                  75% { transform: translateX(1px) rotate(-3deg); }
-                  100% { transform: translateX(0); }
-             }
+        form button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; /* Color de fondo */
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-             .vibrate {
-                  animation: vibrate .3s ease-in-out infinite;
-             }
-        </style>
-    </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg bg-light">
-              <div class="container-fluid">
-                <form id="goHome" method="GET" action="/home">
-                  <button id="homeButton" class="vibrate">
-                      <span class="fas fa-house-user"
-                            aria-hidden="true">
-                      </span>
-                  </button>
-                </form>
-                <button
-                  class="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarNav"
-                  aria-controls="navbarNav"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              </div>
-            </nav>
-        </header>
-        <div class="row m-sm-5 m-3">
-          <h1 style="color:white" class="col">Create task</h1>
+        form button[type="submit"]:hover {
+            background-color: #0056b3; /* Color de fondo al pasar el ratón */
+        }
+
+        .slider {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative; /* Añadir posición relativa */
+        }
+
+        .slick-slide {
+            text-align: center;
+            color: #007bff;
+            background: white;
+            height: 120px;
+            line-height: 120px;
+            font-size: 30px;
+            border-radius: 12px;
+            margin: 0 5px;
+            transition: color 0.3s ease; /* Transición para el color del número */
+        }
+
+        .slick-slide.slick-current {
+            color: white; /* Cambiar el color del número seleccionado */
+            background: #0056b3; /* Cambiar el color del slide activo */
+        }
+
+        .slick-prev,
+        .slick-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            cursor: pointer;
+            color: black; /* Cambiar el color de las flechas a negro */
+            border: none;
+            width: 40px; /* Ajustar el tamaño de las flechas */
+            height: 40px; /* Ajustar el tamaño de las flechas */
+            text-align: center;
+            line-height: 40px; /* Ajustar el tamaño de las flechas */
+            font-size: 24px; /* Ajustar el tamaño de las flechas */
+            background-repeat: no-repeat; /* Evitar la repetición del fondo */
+            background-size: 24px; /* Tamaño del fondo del icono */
+            background-position: center; /* Posición del fondo del icono */
+            background-color: transparent; /* Establecer un fondo transparente */
+        }
+
+        .slick-prev:hover,
+        .slick-next:hover {
+            background-color: transparent; /* Mantener el fondo transparente en hover */
+        }
+
+        .slick-prev:focus,
+        .slick-next:focus {
+            outline: none; /* Eliminar el contorno de enfoque */
+        }
+
+        .slick-prev {
+            left: -40px; /* Ajustar la posición izquierda */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>');
+        }
+
+        .slick-next {
+            right: -40px; /* Ajustar la posición derecha */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>');
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col text-center">
+                <h1 style="color:white">Create Task</h1>
+            </div>
         </div>
-        <section class="row justify-content-center">
-          <form method="POST" action="/create_task" class="col-sm-5 col-10">
-            <div class="mb-3">
-              <label for="exampleInputUsername" style="color:white" class="form-label">Description</label>
-              <input
-                name="description"
-                type="text"
-                class="form-control"
-                id="exampleInputUsername"
-                required
-              />
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="POST" action="/create_task">
+                    <div class="mb-3">
+                        <label for="description">Description</label>
+                        <input name="description" type="text" class="form-control" id="description" required>
+                    </div>
+                    <label for="difficulty">Difficult</label>
+                    <div class="slider">
+                        <div data-value="1">1</div>
+                        <div data-value="2">2</div>
+                        <div data-value="3">3</div>
+                        <div data-value="4">4</div>
+                        <div data-value="5">5</div>
+                        <div data-value="6">6</div>
+                        <div data-value="7">7</div>
+                        <div data-value="8">8</div>
+                        <div data-value="9">9</div>
+                        <div data-value="10">10</div>
+                    </div>
+
+                    <input name="difficult" type="number" class="form-control" id="difficulty" style="display: none;" required>
+                    <BR>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
             </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" style="color:white" class="form-label">Difficulty</label>
-              <input name="difficult" type="number" class="form-control" id="exampleInputPassword1" required/>
-            </div>
-            <button type="submit" class="btn btn-primary">Create</button>
-          </form>
-        </section>
-    </body>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var slider = $('.slider');
+            slider.slick({
+                centerMode: true,
+                centerPadding: '60px',
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                infinite: true,
+                speed: 150,
+                arrows: true,
+                prevArrow: '<button type="button" class="slick-prev"></button>',
+                nextArrow: '<button type="button" class="slick-next"></button>'
+            });
+
+            // Evento de cambio de slide
+            slider.on('afterChange', function(event, slick, currentSlide){
+                var selectedValue = $(slick.$slides[currentSlide]).data('value');
+                $('#difficulty').val(selectedValue);
+            });
+        });
+    </script>
+</body>
 </html>
-{% endblock %}
